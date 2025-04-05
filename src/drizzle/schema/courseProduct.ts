@@ -12,17 +12,17 @@ export const CourseProductTable = pgTable(
   {
     courseId: uuid()
       .notNull()
-      .references(() => CourseTable.id, { onDelete: "restrict" }),
+      .references(() => CourseTable.id, { onDelete: "restrict" }), // When a course is deleted, the course_products rows will not be deleted. This is to prevent accidental deletion of products associated with a course.
     productId: uuid()
       .notNull()
-      .references(() => ProductTable.id, { onDelete: "cascade" }),
+      .references(() => ProductTable.id, { onDelete: "cascade" }), // When a product is deleted, the course_products rows with that product ID will be deleted.
     createdAt,
     updatedAt,
   },
   (t) => [primaryKey({ columns: [t.courseId, t.productId] })]
 );
 
-//each row of the course_products table relates to one row in the courses table and one row in the products table
+//each row of the course_products table relates to one row in the courses table and one row in the products table (many-to-one relationship).
 export const CourseProductRelationships = relations(
   CourseProductTable,
   ({ one }) => ({
