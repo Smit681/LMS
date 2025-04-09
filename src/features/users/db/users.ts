@@ -1,6 +1,7 @@
 import { db } from "@/drizzle/db";
 import { UserTable } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
+import { revalidateUserCache } from "./cache";
 
 // This will insert a newUser passed as data in the parameter into the UserTable of our database. If the user with the same clerkUserID exist, it will simply set the same data or update the differences.
 export async function insertUser(data: typeof UserTable.$inferInsert) {
@@ -15,6 +16,8 @@ export async function insertUser(data: typeof UserTable.$inferInsert) {
 
   if (newUser == null) throw Error("Failed to Create New User");
 
+  // Revalidate the cache whenever a new user is created or updated or deleted.
+  revalidateUserCache(newUser.id);
   return newUser;
 }
 
@@ -30,6 +33,7 @@ export async function updateUser(
     .returning();
 
   if (updatedUser == null) throw Error("Failed to Update User");
+  revalidateUserCache(updatedUser.id);
 
   return updatedUser;
 }
@@ -42,13 +46,13 @@ export async function deleteUser(clerkUserID: string) {
       deletedAt: new Date(),
       email: "deleted@deleted.com",
       name: "Deleted user",
-      clerkUserId: "deleted",
       imageUrl: null,
     })
     .where(eq(UserTable.clerkUserId, clerkUserID))
     .returning();
 
   if (deletedUser == null) throw Error("Failed to Update User");
+  revalidateUserCache(deletedUser.id);
 
   return deletedUser;
 }
