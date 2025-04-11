@@ -1,4 +1,3 @@
-import { ActionButton } from "@/components/ActionButton";
 import CourseForm from "@/components/CourseForm";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
@@ -8,13 +7,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { db } from "@/drizzle/db";
 import { CourseSectionTable, CourseTable, LessonTable } from "@/drizzle/schema";
 import { getCourseIDTag } from "@/features/courses/db/cache/cache";
-import { deleteSection } from "@/features/courseSections/actions/sections";
 import { SectionFormDialog } from "@/features/courseSections/components/SectionFormDialog";
+import { SortableSectionList } from "@/features/courseSections/components/SortableSectionList";
 import { getCourseSectionCourseTag } from "@/features/courseSections/db/cache";
 import { getLessonCourseTag } from "@/features/lessons/db/cache/lessons";
-import { cn } from "@/lib/utils";
+
 import { asc, eq } from "drizzle-orm";
-import { EyeClosedIcon, EyeIcon, PlusIcon, Trash2Icon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -50,41 +49,10 @@ export default async function CourseEditPage(params: {
               </SectionFormDialog>
             </CardHeader>
             <CardContent>
-              {course.courseSections.map((section) => (
-                <div key={section.id} className="flex items-center my-2 gap-2">
-                  <div
-                    className={cn(
-                      "mr-auto flex items-center gap-2",
-                      section.status === "private" && "text-muted-foreground"
-                    )}
-                  >
-                    <div>
-                      {section.status === "private" && (
-                        <EyeClosedIcon className="size-4" />
-                      )}
-                      {section.status === "public" && (
-                        <EyeIcon className="size-4" />
-                      )}
-                    </div>
-                    <div>{section.name}</div>
-                  </div>
-                  <SectionFormDialog section={section} courseID={courseID}>
-                    <DialogTrigger asChild>
-                      <Button size="sm">Edit</Button>
-                    </DialogTrigger>
-                  </SectionFormDialog>
-                  <ActionButton
-                    action={deleteSection.bind(null, section.id)}
-                    requireAreYouSure
-                    size="sm"
-                    variant="outline"
-                    className="border-red-500"
-                  >
-                    <Trash2Icon className=" text-red-500" />
-                    <span className="sr-only">Delete</span>
-                  </ActionButton>
-                </div>
-              ))}
+              <SortableSectionList
+                courseId={course.id}
+                sections={course.courseSections}
+              />
             </CardContent>
           </Card>
         </TabsContent>
