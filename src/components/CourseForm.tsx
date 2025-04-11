@@ -15,21 +15,43 @@ import {
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
-import { createCourse } from "@/features/courses/actions/courses";
+import { createCourse, updateCourse } from "@/features/courses/actions/courses";
+import LoadingTextSwap from "./LoadingTextSwap";
+import { useTransition } from "react";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
 
-function CourseForm() {
-  //useForm hook along with zodResolver to validate the form data
+export function CourseForm({
+  course,
+}: {
+  course?: {
+    id: string;
+    name: string;
+    description: string;
+  };
+}) {
   const form = useForm<z.infer<typeof courseSchema>>({
     resolver: zodResolver(courseSchema),
-    defaultValues: {
+    defaultValues: course ?? {
       name: "",
       description: "",
     },
   });
 
+  const [isLoading, startTransition] = useTransition();
+
   // Upon form submission, the onSubmit function is called with the form input data.
   const onSubmit = (data: z.infer<typeof courseSchema>) => {
-    createCourse(data);
+    const action =
+      course == null ? createCourse : updateCourse.bind(null, course.id);
+    startTransition(() => {
+      (async () => {
+        const obj = await action(data);
+        if (obj.error) toast.error(obj.message);
+        else toast.success(obj.message);
+        redirect(`/admin/courses/${obj.id}/edit`);
+      })();
+    });
   };
 
   return (
@@ -74,7 +96,7 @@ function CourseForm() {
           type="submit"
           className="self-end hover:cursor-pointer"
         >
-          Save
+          <LoadingTextSwap isLoading={isLoading}>Save</LoadingTextSwap>
         </Button>
       </form>
     </Form>

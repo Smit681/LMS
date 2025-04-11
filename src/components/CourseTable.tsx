@@ -1,3 +1,8 @@
+//Note: action={deleteCourse.bind(null, course.id)
+//This syntax is used when you want to pass a function with argument but don't want to call rightaway. action = {deleteCourse(course.id)} will call the function at the time of render. We just want to pass it as a new function called action to the child component.
+//functionName.bind(thisArg, ...args)
+//Here this is null, one pre-fill arg is course.id.
+
 import { Button } from "@/components/ui/button";
 import {
   Table,

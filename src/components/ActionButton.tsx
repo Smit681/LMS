@@ -1,9 +1,8 @@
 "use client";
 
-import { ComponentPropsWithRef, ReactNode, useTransition } from "react";
+import { ComponentPropsWithRef, useTransition } from "react";
 import { Button } from "./ui/button";
-import { Loader2Icon } from "lucide-react";
-import { cn } from "@/lib/utils";
+
 import {
   AlertDialog,
   AlertDialogDescription,
@@ -16,6 +15,7 @@ import {
   AlertDialogAction,
 } from "./ui/alert-dialog";
 import { toast } from "sonner";
+import LoadingTextSwap from "./LoadingTextSwap";
 
 export function ActionButton({
   action,
@@ -29,9 +29,13 @@ export function ActionButton({
     const [isLoading, startTransition] = useTransition();
 
     function performAction() {
-      startTransition(async () => {
-        const data = await action();
-        toast(data.message);
+      startTransition(() => {
+        (async () => {
+          const data = await action();
+          if (data.error) {
+            toast.error(data.message);
+          } else toast.success(data.message);
+        })();
       });
     }
 
@@ -50,7 +54,10 @@ export function ActionButton({
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction disabled={isLoading} onClick={performAction}>
+              <AlertDialogAction
+                disabled={isLoading}
+                onClick={() => performAction()}
+              >
                 <LoadingTextSwap isLoading={isLoading}>Yes</LoadingTextSwap>
               </AlertDialogAction>
             </AlertDialogFooter>
@@ -67,33 +74,4 @@ export function ActionButton({
       </Button>
     );
   }
-}
-
-function LoadingTextSwap({
-  isLoading,
-  children,
-}: {
-  isLoading: boolean;
-  children: ReactNode;
-}) {
-  return (
-    <div className="grid items-center justify-items-center">
-      <div
-        className={cn(
-          "col-start-1 col-end-2 row-start-1 row-end-2",
-          isLoading ? "invisible" : "visible"
-        )}
-      >
-        {children}
-      </div>
-      <div
-        className={cn(
-          "col-start-1 col-end-2 row-start-1 row-end-2 text-center",
-          isLoading ? "visible" : "invisible"
-        )}
-      >
-        <Loader2Icon className="animate-spin" />
-      </div>
-    </div>
-  );
 }

@@ -10,5 +10,4 @@ function NewPage() {
     </div>
   );
 }
-
 export default NewPage;
