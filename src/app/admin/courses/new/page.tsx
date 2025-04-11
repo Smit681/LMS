@@ -1,4 +1,4 @@
-import CourseForm from "@/components/CourseForm";
+import CourseForm from "@/features/courses/components/CourseForm";
 import PageHeader from "@/components/PageHeader";
 import React from "react";
 

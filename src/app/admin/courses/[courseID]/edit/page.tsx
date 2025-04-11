@@ -1,4 +1,4 @@
-import CourseForm from "@/components/CourseForm";
+import CourseForm from "@/features/courses/components/CourseForm";
 import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,41 +59,48 @@ export default async function CourseEditPage(params: {
             </CardContent>
           </Card>
           <hr className="my-5" />
-          {course.courseSections.map((section) => (
-            <Card key={section.id} className="my-5">
-              <CardHeader className="flex item-center justify-between">
-                <CardTitle
-                  className={cn(
-                    "flex items-center gap-2 self-center",
-                    section.status === "private" && "text-muted-foreground"
-                  )}
-                >
-                  {section.status === "public" && <EyeIcon size={20} />}
-                  {section.status === "private" && <EyeClosedIcon size={20} />}
-                  {section.name}
-                </CardTitle>
-                <LessonFormDialog
-                  defaultSectionID={section.id}
-                  sections={course.courseSections}
-                >
-                  <DialogTrigger asChild>
-                    <Button
-                      className="hover:cursor-pointer"
-                      variant={"outline"}
-                    >
-                      <PlusIcon /> New Lesson
-                    </Button>
-                  </DialogTrigger>
-                </LessonFormDialog>
-              </CardHeader>
-              <CardContent>
-                <SortableLessonList
-                  sections={course.courseSections}
-                  lessons={section.lessons}
-                />
-              </CardContent>
-            </Card>
-          ))}
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6 py-4">
+            {course.courseSections.map((section) => (
+              <Card
+                key={section.id}
+                className="mt-2 md:min-w-[450px] sm:min-w-[300px] w-full"
+              >
+                <CardHeader className="flex item-center justify-between">
+                  <CardTitle
+                    className={cn(
+                      "flex items-center gap-2 self-center",
+                      section.status === "private" && "text-muted-foreground"
+                    )}
+                  >
+                    {section.status === "public" && <EyeIcon size={20} />}
+                    {section.status === "private" && (
+                      <EyeClosedIcon size={20} />
+                    )}
+                    {section.name}
+                  </CardTitle>
+                  <LessonFormDialog
+                    defaultSectionID={section.id}
+                    sections={course.courseSections}
+                  >
+                    <DialogTrigger asChild>
+                      <Button
+                        className="hover:cursor-pointer"
+                        variant={"outline"}
+                      >
+                        <PlusIcon /> New Lesson
+                      </Button>
+                    </DialogTrigger>
+                  </LessonFormDialog>
+                </CardHeader>
+                <CardContent>
+                  <SortableLessonList
+                    sections={course.courseSections}
+                    lessons={section.lessons}
+                  />
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </TabsContent>
         <TabsContent value="Details">
           <Card>

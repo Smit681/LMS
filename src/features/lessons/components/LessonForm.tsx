@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import CourseForm from "@/components/CourseForm";
+import CourseForm from "@/features/courses/components/CourseForm";
 import {
   Select,
   SelectContent,

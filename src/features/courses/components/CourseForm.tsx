@@ -11,12 +11,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+} from "../../../components/ui/form";
+import { Input } from "../../../components/ui/input";
+import { Textarea } from "../../../components/ui/textarea";
+import { Button } from "../../../components/ui/button";
 import { createCourse, updateCourse } from "@/features/courses/actions/courses";
-import LoadingTextSwap from "./LoadingTextSwap";
+import LoadingTextSwap from "../../../components/LoadingTextSwap";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";

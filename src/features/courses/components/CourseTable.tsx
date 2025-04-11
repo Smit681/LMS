@@ -15,7 +15,7 @@ import {
 import { formatPlural } from "@/lib/formatters";
 import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
-import { ActionButton } from "./ActionButton";
+import { ActionButton } from "../../../components/ActionButton";
 import { deleteCourse } from "@/features/courses/actions/courses";
 
 function CourseTable({
