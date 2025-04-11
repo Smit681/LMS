@@ -32,6 +32,7 @@ import LoadingTextSwap from "@/components/LoadingTextSwap";
 import { Textarea } from "@/components/ui/textarea";
 import { createLesson, updateLesson } from "../actions/lessons";
 import { useTransition } from "react";
+import { YouTubeVideoPlayer } from "./YouTubeVideoPlayer";
 
 export function LessonForm({
   sections,
@@ -82,7 +83,7 @@ export function LessonForm({
     });
   };
 
-  // const videoId = form.watch("youtubeVideoId");
+  const videoId = form.watch("youtubeVideoId");
   return (
     // Form is a shadcn wrapper around react-hook-form
     <Form {...form}>
@@ -192,11 +193,11 @@ export function LessonForm({
         >
           <LoadingTextSwap isLoading={isLoading}>Save</LoadingTextSwap>
         </Button>
-        {/* {videoId && (
+        {videoId && (
           <div className="aspect-video">
             <YouTubeVideoPlayer videoId={videoId} />
           </div>
-        )} */}
+        )}
       </form>
     </Form>
   );
