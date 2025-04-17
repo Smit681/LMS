@@ -37,7 +37,7 @@ export function ProductCard({
       </CardContent>
       <CardFooter className="mt-auto">
         <Button className="w-full text-md py-y" asChild>
-          <Link href={`/products/${id}`}>View Course</Link>
+          <Link href={`/products/${id}`}>View Courses</Link>
         </Button>
       </CardFooter>
     </Card>
