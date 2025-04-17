@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     dynamicIO: true,
     authInterrupts: true,
   },
+  images: {
+    domains: ["images.prismic.io"],
+  },
 };
 
 export default nextConfig;
