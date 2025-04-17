@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { ProductStatus } from "@/drizzle/schema";
-import { formatPlural, formatPrice } from "@/lib/formatters";
+import { formatPlural } from "@/lib/formatters";
 import { EyeIcon, LockIcon, Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -64,7 +64,7 @@ export function ProductTable({
                       singular: "course",
                       plural: "courses",
                     })}{" "}
-                    • {formatPrice(product.priceInDollars)}
+                    • ${product.priceInDollars}
                   </div>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,12 +6,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { formatPrice } from "@/lib/formatters"
-import { getUserCoupon } from "@/lib/userCountryHeader"
-import Image from "next/image"
-import Link from "next/link"
-import { Suspense } from "react"
+} from "@/components/ui/card";
+import Image from "next/image";
+import Link from "next/link";
 
 export function ProductCard({
   id,
@@ -20,11 +17,11 @@ export function ProductCard({
   priceInDollars,
   description,
 }: {
-  id: string
-  imageUrl: string
-  name: string
-  priceInDollars: number
-  description: string
+  id: string;
+  imageUrl: string;
+  name: string;
+  priceInDollars: number;
+  description: string;
 }) {
   return (
     <Card className="overflow-hidden flex flex-col w-full max-w-[500px] mx-auto">
@@ -32,11 +29,7 @@ export function ProductCard({
         <Image src={imageUrl} alt={name} fill className="object-cover" />
       </div>
       <CardHeader className="space-y-0">
-        <CardDescription>
-          <Suspense fallback={formatPrice(priceInDollars)}>
-            <Price price={priceInDollars} />
-          </Suspense>
-        </CardDescription>
+        <CardDescription>${priceInDollars}</CardDescription>
         <CardTitle className="text-xl">{name}</CardTitle>
       </CardHeader>
       <CardContent>
@@ -48,21 +41,5 @@ export function ProductCard({
         </Button>
       </CardFooter>
     </Card>
-  )
-}
-
-async function Price({ price }: { price: number }) {
-  const coupon = await getUserCoupon()
-  if (price === 0 || coupon == null) {
-    return formatPrice(price)
-  }
-
-  return (
-    <div className="flex gap-2 items-baseline">
-      <div className="line-through text-xs opacity-50">
-        {formatPrice(price)}
-      </div>
-      <div>{formatPrice(price * (1 - coupon.discountPercentage))}</div>
-    </div>
-  )
+  );
 }
