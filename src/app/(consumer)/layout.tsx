@@ -30,7 +30,13 @@ function Navbar() {
           href="/"
           className="mr-auto hover:cursor-pointer flex items-center pl-10"
         >
-          <Image src="/LMS_logo.png" alt="Logo" width={230} height={100} />
+          <Image
+            src="/LMS_logo.png"
+            alt="Logo"
+            width={230}
+            height={100}
+            className="min-w-[230]"
+          />
         </Link>
 
         <Suspense>
@@ -48,7 +54,7 @@ function Navbar() {
             >
               Purchase History
             </Link>
-            <div className="size-8 self-center mr-10">
+            <div className="size-8 self-center mr-10 min-w-[38px]">
               <UserButton
                 appearance={{
                   elements: {

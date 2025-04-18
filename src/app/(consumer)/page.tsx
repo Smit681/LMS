@@ -7,7 +7,6 @@ import { cacheTag } from "next/dist/server/use-cache/cache-tag";
 
 export default async function Home() {
   const publicProducts = await getPublicProduct();
-  //console.log(publicProducts);
   return (
     <>
       <div className="m-10 grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-5 sm:grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
