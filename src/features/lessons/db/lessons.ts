@@ -49,7 +49,7 @@ export async function updateLessonDb(
       currentLesson?.sectionId !== data.sectionId &&
       data.order == null
     ) {
-      data.order = await getNextCourseLessonOrder(data.sectionId);
+      data.order = await getNextCourseLessonOrderDb(data.sectionId);
     }
 
     const [updatedLesson] = await trx

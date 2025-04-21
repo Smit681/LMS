@@ -156,7 +156,6 @@ async function PurchaseButton({
   const { userID } = await getCurrentUser();
   const alreadyOwnsProduct =
     userID != null && (await userOwnsProduct({ userID, productId }));
-
   if (alreadyOwnsProduct) {
     return <p>You already own this product</p>;
   } else {

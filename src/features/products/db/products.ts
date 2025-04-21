@@ -6,8 +6,6 @@ import {
   ProductTable,
   PurchaseTable,
 } from "@/drizzle/schema";
-import { cacheTag } from "next/dist/server/use-cache/cache-tag";
-import { getPurchaseUserTag } from "@/features/purchses/db/cache";
 // import { cacheTag } from "next/dist/server/use-cache/cache-tag"
 // import { getPurchaseUserTag } from "@/features/purchases/db/cache"
 
@@ -18,8 +16,8 @@ export async function userOwnsProduct({
   userID: string;
   productId: string;
 }) {
-  "use cache";
-  cacheTag(getPurchaseUserTag(userID));
+  // "use cache";
+  // cacheTag(getPurchaseUserTag(userID));
 
   const existingPurchase = await db.query.PurchaseTable.findFirst({
     where: and(
@@ -28,7 +26,6 @@ export async function userOwnsProduct({
       isNull(PurchaseTable.refundedAt)
     ),
   });
-
   return existingPurchase != null;
 }
 
