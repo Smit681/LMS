@@ -28,6 +28,12 @@ function Navbar() {
           <SignedIn>
             <Link
               className="hover:bg-accent/10 flex items-center px-2"
+              href="/admin/"
+            >
+              Admin Dashboard
+            </Link>
+            <Link
+              className="hover:bg-accent/10 flex items-center px-2"
               href="/admin/courses"
             >
               Courses
