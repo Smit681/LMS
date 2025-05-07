@@ -1,4 +1,4 @@
-🧠 Brainstormr
+> **🧠 Brainstormr**
 A modern and scalable full-stack Learning Management System (LMS) platform built with the latest web technologies.
 
 🚀 Overview
