@@ -2,7 +2,7 @@
 
 A modern and scalable full-stack Learning Management System (LMS) platform built with the latest web technologies.
 
-# **🚀 Overview **
+# **🚀 Overview**
 
 Brainstormr is a dynamic LMS platform that enables admin users to manage digital products composed of structured learning materials like courses, sections, and lessons. End-users can create accounts, purchase products, and track their progress through free or premium content.
 
@@ -20,7 +20,7 @@ Brainstormr is a dynamic LMS platform that enables admin users to manage digital
 - Stripe integration for product purchases
 - Secure access control for free and premium lessons
 
-# **📦 Features **
+# **📦 Features**
 # **🧑‍💼 Admin Panel**
 
 - Create and manage Products
